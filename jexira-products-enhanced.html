@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Products — Jexira Bath Products</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --purple:       #5b2d8e;
+      --purple-dark:  #3e1d63;
+      --purple-light: #7c4db5;
+      --purple-pale:  #c9a0ff;
+      --accent:       #f5f0ff;
+      --accent2:      #ede4ff;
+      --text-dark:    #1a1a2e;
+      --text-mid:     #4a4a6a;
+      --white:        #ffffff;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--text-dark);overflow-x:hidden;}
+
+    /* ─── NAVBAR ─── */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(91,45,142,0.08);transition:box-shadow .3s;}
+    nav.scrolled{box-shadow:0 4px 32px rgba(91,45,142,0.12);}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo-icon{width:38px;height:38px;background:var(--purple);border-radius:10px;display:flex;align-items:center;justify-content:center;}
+    .logo-text{display:flex;flex-direction:column;line-height:1;}
+    .logo-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--purple);letter-spacing:-.5px;}
+    .logo-sub{font-size:10px;letter-spacing:2px;color:var(--text-mid);text-transform:uppercase;font-weight:500;margin-top:1px;}
+    .nav-links{display:flex;align-items:center;gap:6px;list-style:none;}
+    .nav-links a{font-size:14.5px;font-weight:500;color:var(--text-mid);text-decoration:none;padding:8px 14px;border-radius:8px;transition:color .2s,background .2s;position:relative;}
+    .nav-links a:hover{color:var(--purple);background:var(--accent);}
+    .nav-links a.active{color:var(--purple);font-weight:600;}
+    .nav-links a.active::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:20px;height:2px;background:var(--purple);border-radius:2px;}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;border-radius:8px;background:none;border:none;transition:background .2s;}
+    .hamburger:hover{background:var(--accent);}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--purple);border-radius:2px;transition:transform .3s,opacity .3s;}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .hamburger.open span:nth-child(2){opacity:0;}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    .mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(20px);padding:16px 24px 24px;border-bottom:1px solid rgba(91,45,142,0.1);z-index:199;}
+    .mobile-menu.open{display:block;}
+    .mobile-menu a{display:block;padding:12px 16px;font-size:15px;font-weight:500;color:var(--text-mid);text-decoration:none;border-radius:10px;margin-bottom:4px;transition:background .2s,color .2s;}
+    .mobile-menu a:hover,.mobile-menu a.active{background:var(--accent);color:var(--purple);}
+
+    /* ─── PAGE HERO ─── */
+    .page-hero{padding-top:68px;min-height:380px;position:relative;display:flex;align-items:center;overflow:hidden;}
+    .ph-bg{position:absolute;inset:0;background:linear-gradient(130deg,#2d1257 0%,#5b2d8e 55%,#7c4db5 100%);}
+    .ph-bg::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:60px 60px;}
+    .ph-bg::after{content:'';position:absolute;bottom:-80px;right:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(255,255,255,0.07),transparent 65%);border-radius:50%;}
+    .ph-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:64px 24px 56px;width:100%;}
+    .breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:18px;}
+    .breadcrumb a{color:rgba(255,255,255,0.5);text-decoration:none;transition:color .2s;}
+    .breadcrumb a:hover{color:#fff;}
+    .breadcrumb span{color:rgba(255,255,255,0.3);}
+    .breadcrumb strong{color:rgba(255,255,255,0.85);font-weight:500;}
+    .ph-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4.5vw,56px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:14px;animation:fadeUp .7s .2s both;}
+    .ph-title em{font-style:italic;color:var(--purple-pale);}
+    .ph-sub{font-size:15.5px;color:rgba(255,255,255,0.7);line-height:1.75;max-width:540px;animation:fadeUp .7s .35s both;margin-bottom:28px;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+    .wave-div{display:block;width:100%;line-height:0;}
+    .wave-div svg{display:block;width:100%;}
+
+    /* ─── CATEGORY SECTION (main page view) ─── */
+    #categoriesView{background:#faf8ff;padding:64px 0 80px;}
+    .cats-inner{max-width:1200px;margin:0 auto;padding:0 24px;}
+    .cats-header{text-align:center;margin-bottom:52px;}
+    .sec-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(91,45,142,0.08);border:1px solid rgba(91,45,142,0.18);color:var(--purple);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:14px;}
+    .sec-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,40px);font-weight:700;color:var(--text-dark);}
+    .sec-title span{color:var(--purple);}
+    .sec-sub{font-size:15px;color:var(--text-mid);margin-top:10px;line-height:1.7;}
+
+    /* Category cards grid */
+    .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+    .cat-card{background:#fff;border-radius:22px;overflow:hidden;border:1px solid rgba(91,45,142,0.08);box-shadow:0 4px 24px rgba(91,45,142,0.07);transition:transform .35s,box-shadow .35s;cursor:pointer;position:relative;}
+    .cat-card:hover{transform:translateY(-8px);box-shadow:0 24px 56px rgba(91,45,142,0.18);}
+    .cat-card-img{position:relative;height:220px;overflow:hidden;}
+    .cat-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s;}
+    .cat-card:hover .cat-card-img img{transform:scale(1.09);}
+    .cat-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(30,10,60,0.72) 0%,transparent 60%);}
+    .cat-card-badge{position:absolute;top:14px;left:14px;background:rgba(255,255,255,0.18);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.3);color:#fff;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:5px 12px;border-radius:100px;}
+    .cat-card-count{position:absolute;bottom:16px;left:16px;color:rgba(255,255,255,0.75);font-size:12px;font-weight:500;}
+    .cat-card-body{padding:22px 24px 26px;}
+    .cat-card-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text-dark);margin-bottom:7px;}
+    .cat-card-desc{font-size:13px;color:var(--text-mid);line-height:1.65;margin-bottom:18px;}
+    .cat-card-btn{display:inline-flex;align-items:center;gap:8px;background:var(--purple);color:#fff;font-size:13px;font-weight:600;padding:10px 20px;border-radius:50px;border:none;cursor:pointer;transition:background .2s,transform .2s;text-decoration:none;}
+    .cat-card-btn:hover{background:var(--purple-dark);transform:translateX(3px);}
+    .cat-card-btn svg{transition:transform .2s;}
+    .cat-card-btn:hover svg{transform:translateX(3px);}
+
+    /* ─── FULL PRODUCT CATALOG VIEW ─── */
+    #catalogView{display:none;background:#faf8ff;padding:48px 0 80px;}
+    .catalog-inner{max-width:1200px;margin:0 auto;padding:0 24px;}
+    .catalog-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:12px;}
+    .back-btn{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid rgba(91,45,142,0.2);color:var(--purple);font-size:13.5px;font-weight:600;padding:9px 18px;border-radius:50px;cursor:pointer;transition:all .2s;}
+    .back-btn:hover{background:var(--purple);color:#fff;border-color:var(--purple);}
+    .catalog-title{font-family:'Playfair Display',serif;font-size:clamp(22px,2.5vw,32px);font-weight:700;color:var(--text-dark);}
+    .catalog-title span{color:var(--purple);}
+
+    /* Filter bar */
+    .filter-bar{background:#fff;border:1px solid rgba(91,45,142,0.1);border-radius:16px;padding:12px 16px;margin-bottom:32px;display:flex;align-items:center;gap:10px;overflow-x:auto;scrollbar-width:none;}
+    .filter-bar::-webkit-scrollbar{display:none;}
+    .filter-label{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-mid);flex-shrink:0;margin-right:4px;}
+    .filter-btn{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--text-mid);background:transparent;border:1.5px solid rgba(91,45,142,0.15);padding:7px 16px;border-radius:100px;cursor:pointer;transition:all .2s;white-space:nowrap;}
+    .filter-btn:hover{color:var(--purple);border-color:rgba(91,45,142,0.4);background:var(--accent);}
+    .filter-btn.active{color:#fff;background:var(--purple);border-color:var(--purple);}
+    .fcount{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 4px;background:rgba(255,255,255,0.25);border-radius:50%;font-size:9px;font-weight:700;}
+    .filter-btn:not(.active) .fcount{background:rgba(91,45,142,0.1);color:var(--purple);}
+
+    /* Product grid */
+    .prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+    .prod-card{background:#fff;border-radius:18px;overflow:hidden;border:1px solid rgba(91,45,142,0.08);box-shadow:0 4px 20px rgba(91,45,142,0.06);transition:transform .3s,box-shadow .3s;cursor:pointer;display:flex;flex-direction:column;}
+    .prod-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(91,45,142,0.16);}
+    .prod-card.hidden{display:none;}
+    .card-img{position:relative;aspect-ratio:1;overflow:hidden;background:var(--accent);}
+    .card-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+    .prod-card:hover .card-img img{transform:scale(1.08);}
+    .card-badges{position:absolute;top:10px;left:10px;display:flex;flex-direction:column;gap:5px;}
+    .badge{font-size:10px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;padding:4px 9px;border-radius:100px;}
+    .badge.new{background:#22c55e;color:#fff;}
+    .badge.bestseller{background:var(--purple);color:#fff;}
+    .badge.premium{background:#f59e0b;color:#fff;}
+    .quick-view-btn{position:absolute;bottom:10px;right:10px;width:34px;height:34px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,0.14);color:var(--purple);border:none;cursor:pointer;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s,background .2s,color .2s;}
+    .prod-card:hover .quick-view-btn{opacity:1;transform:translateY(0);}
+    .quick-view-btn:hover{background:var(--purple);color:#fff;}
+    .card-body{padding:15px 16px 18px;flex:1;display:flex;flex-direction:column;}
+    .card-cat-label{font-size:10px;font-weight:700;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;}
+    .card-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:5px;line-height:1.3;}
+    .card-desc{font-size:12px;color:var(--text-mid);line-height:1.6;flex:1;margin-bottom:10px;}
+    .card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
+    .card-material{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--text-mid);background:var(--accent);padding:4px 9px;border-radius:100px;}
+    .card-arrow{width:30px;height:30px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--purple);transition:background .2s,color .2s;}
+    .prod-card:hover .card-arrow{background:var(--purple);color:#fff;}
+
+    /* ─── PRODUCT MODAL ─── */
+    .modal-overlay{position:fixed;inset:0;background:rgba(20,10,40,0.72);backdrop-filter:blur(6px);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;}
+    .modal-overlay.open{opacity:1;visibility:visible;}
+    .modal{background:#fff;border-radius:24px;width:100%;max-width:860px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;transform:translateY(28px) scale(0.97);transition:transform .35s cubic-bezier(.22,1,.36,1);box-shadow:0 32px 80px rgba(0,0,0,0.3);}
+    .modal-overlay.open .modal{transform:translateY(0) scale(1);}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:20px 26px;border-bottom:1px solid rgba(91,45,142,0.1);}
+    .modal-header-left{display:flex;align-items:center;gap:10px;}
+    .modal-cat-pill{background:var(--accent);color:var(--purple);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:100px;}
+    .modal-badge{}
+    .modal-close{width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(91,45,142,0.15);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-mid);transition:all .2s;}
+    .modal-close:hover{background:var(--purple);color:#fff;border-color:var(--purple);}
+    .modal-body{display:grid;grid-template-columns:1fr 1fr;overflow-y:auto;flex:1;}
+    .modal-img-side{position:relative;background:var(--accent);overflow:hidden;}
+    .modal-img-side img{width:100%;height:100%;object-fit:cover;min-height:340px;}
+    .modal-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(30,10,60,0.15));}
+    .modal-info{padding:28px 30px;display:flex;flex-direction:column;overflow-y:auto;}
+    .modal-product-name{font-family:'Playfair Display',serif;font-size:clamp(20px,2vw,26px);font-weight:700;color:var(--text-dark);line-height:1.2;margin-bottom:10px;}
+    .modal-desc{font-size:14px;color:var(--text-mid);line-height:1.75;margin-bottom:22px;}
+    .modal-specs{background:var(--accent);border-radius:14px;padding:18px 20px;margin-bottom:22px;}
+    .modal-specs-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple);margin-bottom:14px;}
+    .spec-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(91,45,142,0.08);}
+    .spec-row:last-child{border-bottom:none;}
+    .spec-label{font-size:12.5px;font-weight:500;color:var(--text-mid);}
+    .spec-val{font-size:12.5px;font-weight:700;color:var(--text-dark);}
+    .modal-features{margin-bottom:24px;}
+    .modal-features-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+    .feat-list{display:flex;flex-direction:column;gap:8px;}
+    .feat-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--text-mid);line-height:1.5;}
+    .feat-check{width:18px;height:18px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+    .modal-actions{display:flex;gap:10px;margin-top:auto;padding-top:4px;}
+    .btn-primary-sm{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:7px;background:var(--purple);color:#fff;font-size:13.5px;font-weight:700;padding:12px 18px;border-radius:50px;border:none;cursor:pointer;transition:background .2s,transform .2s;text-decoration:none;}
+    .btn-primary-sm:hover{background:var(--purple-dark);transform:translateY(-2px);}
+    .btn-outline-sm{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:transparent;color:var(--purple);font-size:13.5px;font-weight:600;padding:11px 18px;border-radius:50px;border:2px solid rgba(91,45,142,0.25);cursor:pointer;transition:all .2s;text-decoration:none;}
+    .btn-outline-sm:hover{border-color:var(--purple);background:var(--accent);}
+
+    /* ─── WHY CHOOSE section ─── */
+    .why-section{background:#fff;padding:72px 0;}
+    .why-inner{max-width:1200px;margin:0 auto;padding:0 24px;}
+    .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px;}
+    .why-card{background:var(--accent);border-radius:18px;padding:28px 22px;text-align:center;border:1px solid rgba(91,45,142,0.08);transition:transform .3s,box-shadow .3s;}
+    .why-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(91,45,142,0.12);}
+    .why-icon{width:52px;height:52px;background:var(--purple);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+    .why-title{font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:7px;}
+    .why-desc{font-size:12.5px;color:var(--text-mid);line-height:1.65;}
+
+    /* ─── FINISH SECTION ─── */
+    .finish-section{background:#faf8ff;padding:72px 0;}
+    .finish-inner{max-width:1200px;margin:0 auto;padding:0 24px;}
+    .finish-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:48px;}
+    .finish-card{border-radius:16px;overflow:hidden;border:2px solid transparent;cursor:pointer;transition:border-color .2s,transform .2s,box-shadow .2s;}
+    .finish-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(91,45,142,0.14);border-color:var(--purple);}
+    .finish-swatch{height:90px;position:relative;}
+    .finish-swatch.chrome{background:linear-gradient(135deg,#e8e8e8,#fff,#c0c0c0,#a0a0a0);}
+    .finish-swatch.pvd-gold{background:linear-gradient(135deg,#b8860b,#ffd700,#daa520,#b8860b);}
+    .finish-swatch.pvd-black{background:linear-gradient(135deg,#1a1a1a,#3a3a3a,#1a1a1a);}
+    .finish-swatch.rose-gold{background:linear-gradient(135deg,#b76e79,#f4a7b9,#d4838f,#b76e79);}
+    .finish-swatch.brushed{background:repeating-linear-gradient(90deg,#d0d0d0 0px,#c8c8c8 1px,#e0e0e0 2px,#d0d0d0 4px);}
+    .finish-body{padding:13px 15px;background:#fff;}
+    .finish-name{font-size:13.5px;font-weight:700;color:var(--text-dark);margin-bottom:3px;}
+    .finish-note{font-size:11px;color:var(--text-mid);}
+
+    /* ─── CTA STRIP ─── */
+    .cta-strip{background:var(--purple);padding:56px 24px;text-align:center;position:relative;overflow:hidden;}
+    .cta-strip::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(255,255,255,0.07),transparent 50%),radial-gradient(circle at 80% 50%,rgba(255,255,255,0.05),transparent 50%);}
+    .cta-inner{position:relative;z-index:1;max-width:680px;margin:0 auto;}
+    .cta-strip h2{font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,40px);color:#fff;font-weight:700;margin-bottom:14px;}
+    .cta-strip p{font-size:16px;color:rgba(255,255,255,0.72);line-height:1.7;margin-bottom:32px;}
+    .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+    .btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--purple);font-size:15px;font-weight:700;padding:14px 28px;border-radius:50px;text-decoration:none;cursor:pointer;border:none;transition:transform .2s,box-shadow .25s;box-shadow:0 8px 28px rgba(0,0,0,0.2);}
+    .btn-white:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(0,0,0,0.28);}
+    .btn-outline-white{display:inline-flex;align-items:center;gap:8px;background:transparent;color:#fff;font-size:15px;font-weight:600;padding:13px 28px;border-radius:50px;text-decoration:none;cursor:pointer;border:2px solid rgba(255,255,255,0.4);transition:border-color .2s,background .2s,transform .2s;}
+    .btn-outline-white:hover{border-color:#fff;background:rgba(255,255,255,0.1);transform:translateY(-2px);}
+
+    /* ─── FOOTER ─── */
+    footer{position:relative;overflow:hidden;}
+    .footer-bg{position:absolute;inset:0;background:linear-gradient(160deg,#1a0d30,#2d1257 60%,#1a0d30);}
+    .footer-bg::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--purple-light),transparent);}
+    .footer-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:64px 24px 40px;display:grid;grid-template-columns:1.6fr 1fr 1fr 1.4fr;gap:40px;}
+    .footer-heading{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.9);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.08);}
+    .footer-desc{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.75;margin-bottom:22px;}
+    .footer-links{list-style:none;}
+    .footer-links li{margin-bottom:10px;}
+    .footer-links a{font-size:13.5px;color:rgba(255,255,255,0.55);text-decoration:none;transition:color .2s;}
+    .footer-links a:hover{color:#fff;}
+    .footer-contact-list{list-style:none;}
+    .footer-contact-list li{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;}
+    .contact-icon{width:28px;height:28px;background:rgba(255,255,255,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--purple-pale);}
+    .social-links{display:flex;gap:10px;}
+    .social-btn{width:36px;height:36px;background:rgba(255,255,255,0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);text-decoration:none;transition:background .2s,color .2s;}
+    .social-btn:hover{background:var(--purple-light);color:#fff;}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,0.07);position:relative;z-index:2;}
+    .footer-bottom-inner{max-width:1200px;margin:0 auto;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    .footer-bottom p{font-size:12.5px;color:rgba(255,255,255,0.35);}
+    .footer-bottom-links{display:flex;align-items:center;gap:12px;}
+    .footer-bottom-links a{font-size:12.5px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color .2s;}
+    .footer-bottom-links a:hover{color:rgba(255,255,255,0.7);}
+    .footer-bottom-links span{color:rgba(255,255,255,0.15);}
+
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:1024px){
+      .cat-grid{grid-template-columns:repeat(2,1fr);}
+      .prod-grid{grid-template-columns:repeat(3,1fr);}
+      .why-grid{grid-template-columns:repeat(2,1fr);}
+      .finish-grid{grid-template-columns:repeat(3,1fr);}
+      .footer-inner{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:768px){
+      .nav-links{display:none;}
+      .hamburger{display:flex;}
+      .cat-grid{grid-template-columns:1fr;}
+      .prod-grid{grid-template-columns:repeat(2,1fr);}
+      .modal-body{grid-template-columns:1fr;}
+      .modal-img-side img{min-height:220px;}
+      .finish-grid{grid-template-columns:repeat(2,1fr);}
+      .why-grid{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:480px){
+      .prod-grid{grid-template-columns:1fr;}
+      .modal-actions{flex-direction:column;}
+      .why-grid{grid-template-columns:1fr;}
+      .finish-grid{grid-template-columns:repeat(2,1fr);}
+      .footer-inner{grid-template-columns:1fr;}
+      .catalog-topbar{flex-direction:column;align-items:flex-start;}
+    }
+
+    /* scroll reveal */
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease;}
+    .reveal.visible{opacity:1;transform:none;}
+  </style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav id="navbar">
+  <div class="nav-inner">
+       <a href="#" class="logo">
+  <img src="../Assest/img/logo_cmp.png" alt="Jexira Logo" width="100">
+</a>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#" class="active">Products</a></li>
+      <li><a href="#">Manufacturing</a></li>
+      <li><a href="#">Catalog</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#">Home</a>
+  <a href="#">About Us</a>
+  <a href="#" class="active">Products</a>
+  <a href="#">Manufacturing</a>
+  <a href="#">Catalog</a>
+  <a href="#">Contact</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="page-hero">
+  <div class="ph-bg"></div>
+  <div class="ph-inner">
+    <div class="breadcrumb">
+      <a href="#">Home</a>
+      <span>›</span>
+      <strong>Products</strong>
+    </div>
+    <h1 class="ph-title">Our <em>Product</em> Range</h1>
+    <p class="ph-sub">Premium stainless steel bathroom accessories engineered for modern homes, luxury hotels, and commercial projects across India and beyond.</p>
+  </div>
+</section>
+<div class="wave-div">
+  <svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0 C360,48 1080,48 1440,0 L1440,48 L0,48 Z" fill="#faf8ff"/>
+  </svg>
+</div>
+
+<!-- ══ CATEGORIES VIEW (default) ══ -->
+<section id="categoriesView">
+  <div class="cats-inner">
+    <div class="cats-header reveal">
+      <div class="sec-tag">Product Categories</div>
+      <h2 class="sec-title">Browse Our <span>Collections</span></h2>
+      <p class="sec-sub">Explore premium bathroom fittings across 6 specialized categories — each crafted with export-grade materials.</p>
+    </div>
+
+    <div class="cat-grid">
+
+      <!-- Shower Systems -->
+      <div class="cat-card reveal" onclick="openCatalog('shower')">
+        <div class="cat-card-img">
+          <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=700&q=80" alt="Shower Systems"/>
+          <div class="cat-card-overlay"></div>
+          <div class="cat-card-badge">Shower Systems</div>
+          <div class="cat-card-count">4 Products</div>
+        </div>
+        <div class="cat-card-body">
+          <div class="cat-card-name">Shower Systems</div>
+          <div class="cat-card-desc">Complete shower solutions — overhead rain systems, concealed valves, panel sets, and handheld units built for daily luxury.</div>
+          <button class="cat-card-btn">
+            View Products
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Taps & Mixers -->
+      <div class="cat-card reveal" onclick="openCatalog('tap')">
+        <div class="cat-card-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Taps & Mixers"/>
+          <div class="cat-card-overlay"></div>
+          <div class="cat-card-badge">Taps &amp; Mixers</div>
+          <div class="cat-card-count">4 Products</div>
+        </div>
+        <div class="cat-card-body">
+          <div class="cat-card-name">Taps &amp; Mixers</div>
+          <div class="cat-card-desc">Basin mixers, pillar taps, sink mixers, and wall-mount bath faucets — solid brass bodies with ceramic disc cartridges.</div>
+          <button class="cat-card-btn">
+            View Products
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Towel Accessories -->
+      <div class="cat-card reveal" onclick="openCatalog('towel')">
+        <div class="cat-card-img">
+          <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=700&q=80" alt="Towel Accessories"/>
+          <div class="cat-card-overlay"></div>
+          <div class="cat-card-badge">Towel Accessories</div>
+          <div class="cat-card-count">4 Products</div>
+        </div>
+        <div class="cat-card-body">
+          <div class="cat-card-name">Towel Accessories</div>
+          <div class="cat-card-desc">Towel bars, rings, ladder warmers, and robe hooks in SS 304 and chrome-plated brass — matching sets available.</div>
+          <button class="cat-card-btn">
+            View Products
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Hardware -->
+      <div class="cat-card reveal" onclick="openCatalog('hardware')">
+        <div class="cat-card-img">
+          <img src="https://images.unsplash.com/photo-1565043666747-69f6646db940?w=700&q=80" alt="Hardware"/>
+          <div class="cat-card-overlay"></div>
+          <div class="cat-card-badge">Hardware</div>
+          <div class="cat-card-count">4 Products</div>
+        </div>
+        <div class="cat-card-body">
+          <div class="cat-card-name">Bathroom Hardware</div>
+          <div class="cat-card-desc">Soap dispensers, toilet paper holders, glass shelves, and toothbrush holders — functional elegance for every bathroom.</div>
+          <button class="cat-card-btn">
+            View Products
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- PVD Designer -->
+      <div class="cat-card reveal" onclick="openCatalog('pvd')">
+        <div class="cat-card-img">
+          <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=700&q=80" alt="PVD Designer Series"/>
+          <div class="cat-card-overlay"></div>
+          <div class="cat-card-badge">PVD Designer</div>
+          <div class="cat-card-count">3 Products</div>
+        </div>
+        <div class="cat-card-body">
+          <div class="cat-card-name">PVD Designer Series</div>
+          <div class="cat-card-desc">Gold, black, and rose-gold PVD coated fittings that combine bold aesthetics with superior scratch and tarnish resistance.</div>
+          <button class="cat-card-btn">
+            View Products
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- OEM -->
+      <div class="cat-card reveal" onclick="openCatalog('oem')">
+        <div class="cat-card-img">
+          <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=700&q=80" alt="OEM Custom Orders"/>
+          <div class="cat-card-overlay"></div>
+          <div class="cat-card-badge">OEM / Custom</div>
+          <div class="cat-card-count">3 Products</div>
+        </div>
+        <div class="cat-card-body">
+          <div class="cat-card-name">OEM / Custom Orders</div>
+          <div class="cat-card-desc">Custom sizing, private labelling, and bulk manufacturing for builders, architects, and export distributors worldwide.</div>
+          <button class="cat-card-btn">
+            View Products
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /.cat-grid -->
+  </div>
+</section>
+
+<!-- ══ CATALOG VIEW (shown after clicking a category) ══ -->
+<section id="catalogView">
+  <div class="catalog-inner">
+    <div class="catalog-topbar">
+      <button class="back-btn" onclick="closeCatalog()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Back to Categories
+      </button>
+      <h2 class="catalog-title" id="catalogTitle">All <span>Products</span></h2>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <span class="filter-label">Filter:</span>
+      <button class="filter-btn active" data-cat="all" onclick="filterProducts('all',this)">All Products <span class="fcount">22</span></button>
+      <button class="filter-btn" data-cat="shower" onclick="filterProducts('shower',this)">Shower Systems <span class="fcount">4</span></button>
+      <button class="filter-btn" data-cat="tap" onclick="filterProducts('tap',this)">Taps &amp; Mixers <span class="fcount">4</span></button>
+      <button class="filter-btn" data-cat="towel" onclick="filterProducts('towel',this)">Towel Accessories <span class="fcount">4</span></button>
+      <button class="filter-btn" data-cat="hardware" onclick="filterProducts('hardware',this)">Hardware <span class="fcount">4</span></button>
+      <button class="filter-btn" data-cat="pvd" onclick="filterProducts('pvd',this)">PVD Designer <span class="fcount">3</span></button>
+      <button class="filter-btn" data-cat="oem" onclick="filterProducts('oem',this)">OEM / Custom <span class="fcount">3</span></button>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="prod-grid" id="prodGrid">
+
+      <!-- SHOWER SYSTEMS -->
+      <div class="prod-card" data-cat="shower" onclick="openModal('shower-rain')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=500&q=80" alt="Overhead Rain Shower"/>
+          <div class="card-badges"><span class="badge bestseller">Best Seller</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('shower-rain')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Shower Systems</div>
+          <div class="card-name">Overhead Rain Shower</div>
+          <div class="card-desc">300mm square rain shower head with self-cleaning silicone nozzles and arm mount.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>SS 304</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="shower" onclick="openModal('shower-hand')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500&q=80" alt="Hand Shower Set"/>
+          <div class="card-badges"><span class="badge new">New</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('shower-hand')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Shower Systems</div>
+          <div class="card-name">3-Function Hand Shower</div>
+          <div class="card-desc">Ergonomic hand shower with rain, jet, and massage modes. Includes 1.5m SS flex hose.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>ABS + SS</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="shower" onclick="openModal('shower-panel')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=500&q=80" alt="Shower Panel"/>
+          <div class="card-badges"><span class="badge premium">Premium</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('shower-panel')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Shower Systems</div>
+          <div class="card-name">5-Function Shower Panel</div>
+          <div class="card-desc">Complete panel with rain head, body jets, hand shower, and thermostat control.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>SS 304</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="shower" onclick="openModal('shower-concealed')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&q=80" alt="Concealed Shower Valve"/>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('shower-concealed')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Shower Systems</div>
+          <div class="card-name">Concealed Shower Valve</div>
+          <div class="card-desc">Built-in dual-outlet diverter valve with ceramic disc technology and anti-scald protection.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>Brass</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAPS & MIXERS -->
+      <div class="prod-card" data-cat="tap" onclick="openModal('tap-basin')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="Basin Mixer"/>
+          <div class="card-badges"><span class="badge bestseller">Best Seller</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('tap-basin')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Taps &amp; Mixers</div>
+          <div class="card-name">Single Lever Basin Mixer</div>
+          <div class="card-desc">40mm ceramic cartridge, 360° swivel spout, top-mount installation with SS braided hoses.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>Brass</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="tap" onclick="openModal('tap-pillar')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=500&q=80" alt="Pillar Cock"/>
+          <div class="card-badges"><span class="badge new">New</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('tap-pillar')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Taps &amp; Mixers</div>
+          <div class="card-name">Designer Pillar Cock</div>
+          <div class="card-desc">Quarter-turn pillar tap in swan-neck design with chrome-plated solid brass body.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>Brass</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="tap" onclick="openModal('tap-kitchen')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500&q=80" alt="Kitchen Mixer"/>
+          <div class="card-badges"><span class="badge premium">Premium</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('tap-kitchen')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Taps &amp; Mixers</div>
+          <div class="card-name">Kitchen Sink Mixer</div>
+          <div class="card-desc">Heavy-duty kitchen mixer with pull-out spray head, 360° rotation, and stainless hose.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>SS 304</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="tap" onclick="openModal('tap-wall')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&q=80" alt="Wall Mixer"/>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('tap-wall')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Taps &amp; Mixers</div>
+          <div class="card-name">Wall Mounted Bath Mixer</div>
+          <div class="card-desc">Exposed wall mixer for bath/shower with diverter and handshower port connection.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>Brass</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOWEL ACCESSORIES -->
+      <div class="prod-card" data-cat="towel" onclick="openModal('towel-bar')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=500&q=80" alt="Towel Bar"/>
+          <div class="card-badges"><span class="badge bestseller">Best Seller</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('towel-bar')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Towel Accessories</div>
+          <div class="card-name">24″ SS Towel Bar</div>
+          <div class="card-desc">Wall-mounted 24-inch towel rail in 304-grade stainless steel, 25mm diameter tube.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>SS 304</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="towel" onclick="openModal('towel-ring')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=500&q=80" alt="Towel Ring"/>
+          <div class="card-badges"><span class="badge new">New</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('towel-ring')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Towel Accessories</div>
+          <div class="card-name">Round Towel Ring</div>
+          <div class="card-desc">Circular wall-mounted towel ring with solid brass flange and mirror chrome plating.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>Brass</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="towel" onclick="openModal('towel-warmer')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500&q=80" alt="Towel Warmer"/>
+          <div class="card-badges"><span class="badge premium">Premium</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('towel-warmer')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Towel Accessories</div>
+          <div class="card-name">Ladder Towel Warmer</div>
+          <div class="card-desc">Floor-standing ladder-style rack, anti-corrosion SS finish, 5-bar design for hotels.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>SS 304</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="towel" onclick="openModal('towel-hook')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=500&q=80" alt="Robe Hook"/>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('towel-hook')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Towel Accessories</div>
+          <div class="card-name">Double Robe Hook</div>
+          <div class="card-desc">Heavy-duty double coat/robe hook with solid brass base and mirror chrome finish.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>Brass</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HARDWARE -->
+      <div class="prod-card" data-cat="hardware" onclick="openModal('hw-soap')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1565043666747-69f6646db940?w=500&q=80" alt="Soap Dispenser"/>
+          <div class="card-badges"><span class="badge bestseller">Best Seller</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('hw-soap')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Hardware</div>
+          <div class="card-name">SS Liquid Soap Dispenser</div>
+          <div class="card-desc">Wall-mounted 300ml dispenser with pump mechanism and SS satin finish body.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>SS 304</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="hardware" onclick="openModal('hw-tp')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=500&q=80" alt="Toilet Paper Holder"/>
+          <div class="card-badges"><span class="badge new">New</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('hw-tp')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Hardware</div>
+          <div class="card-name">Toilet Paper Holder</div>
+          <div class="card-desc">Spring-loaded TP holder with SS arm, chrome finish, and concealed wall-mount bracket.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>SS 304</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="hardware" onclick="openModal('hw-shelf')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1565043666747-69f6646db940?w=500&q=80" alt="Glass Shelf"/>
+          <div class="card-badges"><span class="badge premium">Premium</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('hw-shelf')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Hardware</div>
+          <div class="card-name">SS Bathroom Shelf</div>
+          <div class="card-desc">Tempered glass shelf with SS 304 brackets, 8mm toughened glass, 450mm width.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>Glass + SS</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="hardware" onclick="openModal('hw-tb')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500&q=80" alt="Toothbrush Holder"/>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('hw-tb')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">Hardware</div>
+          <div class="card-name">4-Hole Toothbrush Holder</div>
+          <div class="card-desc">Wall-mounted 4-slot toothbrush holder with tumbler support and removable cups.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>SS 304</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PVD DESIGNER -->
+      <div class="prod-card" data-cat="pvd" onclick="openModal('pvd-gold')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="PVD Gold Mixer"/>
+          <div class="card-badges"><span class="badge premium">Premium</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('pvd-gold')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">PVD Designer</div>
+          <div class="card-name">PVD Gold Basin Mixer</div>
+          <div class="card-desc">Luxury gold PVD coated basin mixer — scratch-resistant, tarnish-proof, hotel-grade finish.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>Brass PVD</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="pvd" onclick="openModal('pvd-black')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1565043666747-69f6646db940?w=500&q=80" alt="PVD Black Shower"/>
+          <div class="card-badges"><span class="badge new">New</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('pvd-black')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">PVD Designer</div>
+          <div class="card-name">PVD Matte Black Shower</div>
+          <div class="card-desc">Bold matte black overhead shower with square design and silicone nozzles.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>SS PVD</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="pvd" onclick="openModal('pvd-rose')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500&q=80" alt="Rose Gold Accessories"/>
+          <div class="card-badges"><span class="badge premium">Premium</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('pvd-rose')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">PVD Designer</div>
+          <div class="card-name">Rose Gold Accessory Set</div>
+          <div class="card-desc">Matching rose gold PVD set — towel bar, hook, and paper holder in blush finish.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>Brass PVD</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- OEM / CUSTOM -->
+      <div class="prod-card" data-cat="oem" onclick="openModal('oem-bulk')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500&q=80" alt="Bulk Order"/>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('oem-bulk')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">OEM / Custom</div>
+          <div class="card-name">Bulk Hotel Supply Package</div>
+          <div class="card-desc">Complete bathroom fitout supply for 50+ room projects — custom finish, branded packaging.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>SS / Brass</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="oem" onclick="openModal('oem-label')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=500&q=80" alt="Private Label"/>
+          <div class="card-badges"><span class="badge new">New</span></div>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('oem-label')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">OEM / Custom</div>
+          <div class="card-name">Private Label OEM Service</div>
+          <div class="card-desc">Custom branding on any product line — your logo, your color, your packaging specs.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>Custom</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card" data-cat="oem" onclick="openModal('oem-export')">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="Export Pack"/>
+          <button class="quick-view-btn" onclick="event.stopPropagation();openModal('oem-export')" title="Quick View"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <div class="card-body">
+          <div class="card-cat-label">OEM / Custom</div>
+          <div class="card-name">Export-Ready Pack Solution</div>
+          <div class="card-desc">ISO-certified export carton packing, COC/REACH documentation, and freight coordination.</div>
+          <div class="card-footer">
+            <div class="card-material"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>All Materials</div>
+            <div class="card-arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.prod-grid -->
+  </div>
+</section>
+
+<!-- ══ WHY CHOOSE SECTION ══ -->
+<section class="why-section">
+  <div class="why-inner">
+    <div style="text-align:center;" class="reveal">
+      <div class="sec-tag">Why Jexira</div>
+      <h2 class="sec-title" style="margin-top:12px;">Built on <span>Quality &amp; Trust</span></h2>
+      <p style="font-size:15px;color:var(--text-mid);margin-top:10px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.7;">Every product we manufacture carries decades of expertise, ISO-certified processes, and a commitment to lasting quality.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="why-title">Premium SS 304 Material</div>
+        <div class="why-desc">18/8 chromium-nickel alloy ensures maximum rust and corrosion resistance for a lifetime of use.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+        </div>
+        <div class="why-title">Lifetime Chrome Guarantee</div>
+        <div class="why-desc">Our electroplating process ensures the mirror chrome finish lasts decades without peeling or flaking.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+        </div>
+        <div class="why-title">ISO 9001:2015 Certified</div>
+        <div class="why-desc">BIS-approved raw materials, rigorous QC at every stage, and full COC documentation available.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+        </div>
+        <div class="why-title">Bulk &amp; Export Ready</div>
+        <div class="why-desc">Custom sizes, OEM orders, foam-lined individual packing, and export cartons for global distributors.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINISH OPTIONS ══ -->
+<section class="finish-section">
+  <div class="finish-inner">
+    <div style="text-align:center;" class="reveal">
+      <div class="sec-tag">Available Finishes</div>
+      <h2 class="sec-title" style="margin-top:12px;">Choose Your <span>Perfect Finish</span></h2>
+      <p style="font-size:15px;color:var(--text-mid);margin-top:10px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;">All products available in multiple premium surface finishes to match any interior design vision.</p>
+    </div>
+    <div class="finish-grid">
+      <div class="finish-card reveal">
+        <div class="finish-swatch chrome"></div>
+        <div class="finish-body">
+          <div class="finish-name">Mirror Chrome</div>
+          <div class="finish-note">Classic, high-shine standard</div>
+        </div>
+      </div>
+      <div class="finish-card reveal">
+        <div class="finish-swatch pvd-gold"></div>
+        <div class="finish-body">
+          <div class="finish-name">PVD Gold</div>
+          <div class="finish-note">Luxurious, tarnish-free coating</div>
+        </div>
+      </div>
+      <div class="finish-card reveal">
+        <div class="finish-swatch pvd-black"></div>
+        <div class="finish-body">
+          <div class="finish-name">PVD Matte Black</div>
+          <div class="finish-note">Bold, contemporary statement</div>
+        </div>
+      </div>
+      <div class="finish-card reveal">
+        <div class="finish-swatch rose-gold"></div>
+        <div class="finish-body">
+          <div class="finish-name">Rose Gold</div>
+          <div class="finish-note">Elegant, warm-tone elegance</div>
+        </div>
+      </div>
+      <div class="finish-card reveal">
+        <div class="finish-swatch brushed"></div>
+        <div class="finish-body">
+          <div class="finish-name">Brushed Nickel</div>
+          <div class="finish-note">Satin matte, hides water spots</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="cta-strip reveal">
+  <div class="cta-inner">
+    <h2>Can't Find What You Need?</h2>
+    <p>We manufacture custom sizes, finishes, and bulk OEM orders. Talk to our product team today and get a personalised quote within 24 hours.</p>
+    <div class="cta-btns">
+      <a href="#" class="btn-white">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Full Catalog
+      </a>
+      <a href="#" class="btn-outline-white">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Talk to Sales Team
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-bg"></div>
+  <div class="footer-inner">
+    <div>
+      <a href="#" class="logo" style="margin-bottom:16px;display:flex;">
+        <div class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8c0-2 1.5-4 5-4s5 2 5 4"/><path d="M4 12h16"/><path d="M8 16h8"/></svg></div>
+        <div class="logo-text">
+          <span class="logo-name" style="color:#fff;">jexira</span>
+          <span class="logo-sub" style="color:rgba(255,255,255,0.5);">Bath Products</span>
+        </div>
+      </a>
+      <p class="footer-desc">Leading manufacturer of premium stainless steel bathroom accessories. Trusted by dealers &amp; distributors across India.</p>
+      <div class="social-links">
+        <a href="#" class="social-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="#" class="social-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" class="social-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-heading">Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Manufacturing</a></li>
+        <li><a href="#">Catalog</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-heading">Product Categories</h4>
+      <ul class="footer-links">
+        <li><a href="#">Shower Systems</a></li>
+        <li><a href="#">Taps &amp; Mixers</a></li>
+        <li><a href="#">Towel Accessories</a></li>
+        <li><a href="#">Hardware</a></li>
+        <li><a href="#">PVD Designer Series</a></li>
+        <li><a href="#">OEM / Custom Orders</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-heading">Contact Us</h4>
+      <ul class="footer-contact-list">
+        <li>
+          <div class="contact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <span>Plot No 4175, GIDC Phase 3, Jamnagar, Gujarat</span>
+        </li>
+        <li>
+          <div class="contact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+          <span>+91 96014 51093</span>
+        </li>
+        <li>
+          <div class="contact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <span>info@jexira.com</span>
+        </li>
+        <li>
+          <div class="contact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></div>
+          <span>Mon – Sat: 9AM – 6PM</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <p>© 2026 Jexira Bath Products. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a><span>·</span>
+        <a href="#">Terms of Use</a><span>·</span>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ PRODUCT MODAL ══ -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <span class="modal-cat-pill" id="modalCatPill">Category</span>
+        <span class="modal-badge" id="modalBadgeEl"></span>
+      </div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-img-side">
+        <img id="modalImg" src="" alt=""/>
+        <div class="modal-img-overlay"></div>
+      </div>
+      <div class="modal-info">
+        <h2 class="modal-product-name" id="modalName"></h2>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-specs">
+          <div class="modal-specs-title">Technical Specifications</div>
+          <div id="modalSpecs"></div>
+        </div>
+        <div class="modal-features">
+          <div class="modal-features-title">Key Features</div>
+          <div class="feat-list" id="modalFeatures"></div>
+        </div>
+        <div class="modal-actions">
+          <a href="#" class="btn-primary-sm">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07"/><path d="M8 3H5a2 2 0 00-2 2v14a2 2 0 002 2h11"/><polyline points="8,12 12,16 16,12"/><line x1="12" y1="8" x2="12" y2="16"/></svg>
+            Enquire Now
+          </a>
+          <a href="#" class="btn-outline-sm">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Catalog PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Product Data ──────────────────────────────────────────────────────────
+const products = {
+  'shower-rain': {
+    name: 'Overhead Rain Shower',
+    cat: 'Shower Systems',
+    badge: '',
+    img: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80',
+    desc: 'Transform your daily shower into a spa-like experience with our 300mm square overhead rain shower. Featuring self-cleaning silicone nozzles and a premium SS 304 body for lasting brilliance.',
+    specs: [
+      ['Material', 'SS 304 Grade'],
+      ['Size', '300mm × 300mm'],
+      ['Nozzles', 'Self-cleaning silicone'],
+      ['Connection', '½" BSP'],
+      ['Finish', 'Mirror Chrome / PVD'],
+      ['Installation', 'Ceiling / Arm mount'],
+    ],
+    features: ['Self-cleaning silicone nozzles resist limescale', '360° swivel arm mount for adjustable angle', 'Uniform water distribution across full face', 'Compatible with all standard shower arms']
+  },
+  'shower-hand': {
+    name: '3-Function Hand Shower',
+    cat: 'Shower Systems',
+    badge: 'New',
+    img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80',
+    desc: 'Ergonomically designed 3-function hand shower offering rain, jet, and massage spray modes. Comes complete with a 1.5m stainless steel flexible hose for total freedom of movement.',
+    specs: [
+      ['Material', 'ABS + SS 304'],
+      ['Spray Modes', '3 (Rain / Jet / Massage)'],
+      ['Hose Length', '1.5m SS flexible'],
+      ['Connection', '½" BSP'],
+      ['Finish', 'Chrome / PVD Black'],
+      ['Warranty', '2 Years'],
+    ],
+    features: ['3 independent spray modes with single-click switching', 'Anti-kink SS braided flexible hose', 'Rubberized grip handle for wet-hand control', 'Limescale-resistant nozzle technology']
+  },
+  'shower-panel': {
+    name: '5-Function Shower Panel',
+    cat: 'Shower Systems',
+    badge: 'Premium',
+    img: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=800&q=80',
+    desc: 'A complete luxury shower experience in a single panel — featuring an overhead rain head, body jets, hand shower, and integrated thermostat for precise temperature control every time.',
+    specs: [
+      ['Material', 'SS 304 Grade'],
+      ['Functions', '5 (Rain, Body, Hand, Thermo, Diverter)'],
+      ['Panel Height', '1400mm'],
+      ['Thermostat', 'Anti-scald built-in'],
+      ['Body Jets', '6 adjustable'],
+      ['Finish', 'Chrome / Brushed'],
+    ],
+    features: ['Anti-scald thermostat protects users at precise temperatures', '6 adjustable body massage jets', 'Simultaneous multi-function operation', 'Easy push-button function switching']
+  },
+  'shower-concealed': {
+    name: 'Concealed Shower Valve',
+    cat: 'Shower Systems',
+    badge: '',
+    img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
+    desc: 'A sleek, wall-recessed concealed diverter valve with dual outlet for seamless bathroom aesthetics. Ceramic disc technology ensures drip-free performance and ultra-long service life.',
+    specs: [
+      ['Material', 'Solid Brass'],
+      ['Outlets', '2 (Diverter)'],
+      ['Cartridge', 'Ceramic disc'],
+      ['Connection', '½" BSP'],
+      ['Mounting', 'Concealed wall box'],
+      ['Finish', 'Chrome'],
+    ],
+    features: ['Ceramic disc cartridge — drip-free for life', 'Dual outlet with smooth diverter control', 'Concealed installation for clean aesthetics', 'Compatible with standard concealed boxes']
+  },
+  'tap-basin': {
+    name: 'Single Lever Basin Mixer',
+    cat: 'Taps & Mixers',
+    badge: 'Best Seller',
+    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    desc: 'Our bestselling basin mixer combines clean design with exceptional engineering — 40mm ceramic cartridge, 360° swivel spout, and top-mount installation with SS braided supply hoses included.',
+    specs: [
+      ['Material', 'Solid Brass Body'],
+      ['Cartridge', '40mm Ceramic Disc'],
+      ['Spout Reach', '160mm'],
+      ['Connection', '½" BSP'],
+      ['Hoses', 'SS braided (300mm)'],
+      ['Finish', 'Chrome / PVD Gold'],
+    ],
+    features: ['40mm ceramic cartridge for precise single-lever control', '360° swivel spout with flow limiter', 'SS braided hoses with isolation valves included', 'Click-clack pop-up waste compatible']
+  },
+  'tap-pillar': {
+    name: 'Designer Pillar Cock',
+    cat: 'Taps & Mixers',
+    badge: 'New',
+    img: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=800&q=80',
+    desc: 'A modern swan-neck pillar tap in classic chrome with quarter-turn operation for instant, drip-free shutoff. Solid brass body with polished finish — ideal for wash basins and utility sinks.',
+    specs: [
+      ['Material', 'Solid Brass'],
+      ['Operation', 'Quarter-turn (90°)'],
+      ['Height', '185mm overall'],
+      ['Connection', '½" BSP'],
+      ['Finish', 'Mirror Chrome'],
+      ['Warranty', '2 Years'],
+    ],
+    features: ['Quarter-turn for instant open/shut operation', 'Swan-neck spout for easy basin access', 'Solid brass body — no leaks, no corrosion', 'Suitable for high and low pressure systems']
+  },
+  'tap-kitchen': {
+    name: 'Kitchen Sink Mixer',
+    cat: 'Taps & Mixers',
+    badge: 'Premium',
+    img: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80',
+    desc: 'Heavy-duty kitchen sink mixer with extendable pull-out spray head, 360° body rotation, and stainless steel hose for maximum reach. Perfect for residential and commercial kitchens.',
+    specs: [
+      ['Material', 'SS 304 + Brass'],
+      ['Spout', 'Pull-out spray head'],
+      ['Spray Modes', '2 (Stream / Spray)'],
+      ['Rotation', '360°'],
+      ['Hose Length', '600mm retractable'],
+      ['Finish', 'SS Satin / Chrome'],
+    ],
+    features: ['Pull-out spray head with 2-mode switching', '360° rotation for full sink coverage', 'Weighted self-retract hose mechanism', 'Suitable for countertop installation with deck plate']
+  },
+  'tap-wall': {
+    name: 'Wall Mounted Bath Mixer',
+    cat: 'Taps & Mixers',
+    badge: '',
+    img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
+    desc: 'Exposed wall-mount bath/shower mixer with integrated diverter — connects to both bath spout and hand shower simultaneously. Ideal for tub deck or wall installation in residential baths.',
+    specs: [
+      ['Material', 'Solid Brass'],
+      ['Outlets', '2 (Bath + Shower)'],
+      ['Cartridge', '40mm Ceramic'],
+      ['Connection', '½" BSP Wall'],
+      ['Spout Reach', '220mm'],
+      ['Finish', 'Chrome / PVD'],
+    ],
+    features: ['Integrated 3-way diverter for bath and shower', 'Exposed body with decorative escutcheons', 'Wall-mount on 150mm centres', 'Anti-scalding ceramic cartridge technology']
+  },
+  'towel-bar': {
+    name: '24″ SS Towel Bar',
+    cat: 'Towel Accessories',
+    badge: 'Best Seller',
+    img: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&q=80',
+    desc: 'Our most popular towel rail — wall-mounted 24-inch bar in 304-grade stainless steel with 25mm diameter tube. Solid concealed fixing brackets ensure a clean wall appearance.',
+    specs: [
+      ['Material', 'SS 304'],
+      ['Length', '600mm (24 inch)'],
+      ['Tube Diameter', '25mm'],
+      ['Mounting', 'Wall-mount concealed'],
+      ['Load Rating', '5kg'],
+      ['Finish', 'Chrome / PVD'],
+    ],
+    features: ['Hollow SS 304 tube — lightweight yet ultra-strong', 'Concealed screw fixing for clean wall appearance', 'Anti-rust wall anchors and fixings included', 'Available in 18", 24", and 30" lengths']
+  },
+  'towel-ring': {
+    name: 'Round Towel Ring',
+    cat: 'Towel Accessories',
+    badge: 'New',
+    img: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=800&q=80',
+    desc: 'A classic circular wall-mounted towel ring with solid brass flange and mirror chrome finish. Space-efficient and elegant — perfect for guest bathrooms and compact en-suites.',
+    specs: [
+      ['Material', 'Solid Brass'],
+      ['Ring Diameter', '220mm'],
+      ['Projection', '65mm'],
+      ['Mounting', 'Single-point wall fix'],
+      ['Weight Capacity', '2kg'],
+      ['Finish', 'Chrome / Rose Gold'],
+    ],
+    features: ['Solid brass ring — heavy-duty yet sleek', 'Single-point wall mounting with anti-rotate lock', 'Full 360° rotation for easy towel hanging', 'Matching accessories available in same series']
+  },
+  'towel-warmer': {
+    name: 'Ladder Towel Warmer',
+    cat: 'Towel Accessories',
+    badge: 'Premium',
+    img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80',
+    desc: 'A floor-standing 5-bar ladder towel rack in 304-grade stainless steel — perfect for hotels, luxury bathrooms, and spa facilities. Anti-corrosion finish with anti-slip floor feet.',
+    specs: [
+      ['Material', 'SS 304'],
+      ['Bars', '5 horizontal'],
+      ['Height', '900mm'],
+      ['Width', '450mm'],
+      ['Base', 'Anti-slip floor caps'],
+      ['Finish', 'Brushed / Chrome'],
+    ],
+    features: ['5-bar design holds multiple towels simultaneously', 'Anti-corrosion SS 304 for wet environments', 'Anti-slip rubber feet prevent floor damage', 'Free-standing — no wall drilling required']
+  },
+  'towel-hook': {
+    name: 'Double Robe Hook',
+    cat: 'Towel Accessories',
+    badge: '',
+    img: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80',
+    desc: 'A heavy-duty double robe hook with solid brass wall plate and two-level hooks. Mirror chrome finish — ideal for bathrooms, bedrooms, and hotel room doors.',
+    specs: [
+      ['Material', 'Solid Brass'],
+      ['Hooks', 'Double (2 levels)'],
+      ['Projection', '75mm'],
+      ['Wall Plate', '65mm × 65mm'],
+      ['Load per Hook', '3kg'],
+      ['Finish', 'Chrome / PVD Black'],
+    ],
+    features: ['Double hook design for robe + towel', 'Solid brass wall plate with concealed fixings', 'Heavy-duty rated to 3kg per hook', 'Anti-rust protection even in humid conditions']
+  },
+  'hw-soap': {
+    name: 'SS Liquid Soap Dispenser',
+    cat: 'Hardware',
+    badge: 'Best Seller',
+    img: 'https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80',
+    desc: 'Wall-mounted 300ml liquid soap dispenser in satin finish SS 304. The smooth pump mechanism dispenses the perfect amount every time. Easy refill from top without wall removal.',
+    specs: [
+      ['Material', 'SS 304'],
+      ['Capacity', '300ml'],
+      ['Mounting', 'Wall-mount concealed'],
+      ['Pump', 'Smooth action spring'],
+      ['Refill', 'Top-fill (in-situ)'],
+      ['Finish', 'Satin / Chrome'],
+    ],
+    features: ['Top-fill design — refill without removing from wall', 'Spring-loaded pump with smooth, measured action', 'Leak-proof seal and large capacity reservoir', 'Matches complete Jexira hardware accessory series']
+  },
+  'hw-tp': {
+    name: 'Toilet Paper Holder',
+    cat: 'Hardware',
+    badge: 'New',
+    img: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&q=80',
+    desc: 'Spring-loaded toilet paper holder with SS 304 arm and chrome finish. Concealed wall-mount bracket keeps the wall looking clean, and the spring bar allows easy roll changes.',
+    specs: [
+      ['Material', 'SS 304'],
+      ['Arm Length', '145mm'],
+      ['Mounting', 'Concealed single point'],
+      ['Bar', 'Spring-loaded removable'],
+      ['Roll Capacity', 'Standard + jumbo'],
+      ['Finish', 'Chrome / PVD'],
+    ],
+    features: ['Spring bar allows one-hand roll replacement', 'Concealed mounting for clean wall look', 'Fits standard and jumbo toilet paper rolls', 'Matching accessories in Jexira range']
+  },
+  'hw-shelf': {
+    name: 'SS Bathroom Shelf',
+    cat: 'Hardware',
+    badge: 'Premium',
+    img: 'https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80',
+    desc: 'A wall-mounted bathroom shelf with 8mm toughened tempered glass surface and SS 304 brackets. 450mm wide — ideal for holding toiletries, candles, and bath accessories in style.',
+    specs: [
+      ['Frame Material', 'SS 304'],
+      ['Glass', '8mm toughened tempered'],
+      ['Width', '450mm'],
+      ['Depth', '120mm'],
+      ['Load Rating', '8kg'],
+      ['Finish', 'Chrome brackets'],
+    ],
+    features: ['8mm toughened glass — safe and shatterproof', 'SS 304 brackets with anti-corrosion coating', 'Adjustable wall-fixing positions for tiled walls', 'Available in 300mm / 450mm / 600mm widths']
+  },
+  'hw-tb': {
+    name: '4-Hole Toothbrush Holder',
+    cat: 'Hardware',
+    badge: '',
+    img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80',
+    desc: 'Wall-mounted 4-slot toothbrush holder with tumbler support and removable, dishwasher-safe cups. Keeps your washbasin clutter-free in a clean SS 304 body.',
+    specs: [
+      ['Material', 'SS 304'],
+      ['Slots', '4 toothbrush + 1 tumbler'],
+      ['Mounting', 'Wall-mount concealed'],
+      ['Cups', 'Removable, washable'],
+      ['Width', '130mm'],
+      ['Finish', 'Chrome / Satin'],
+    ],
+    features: ['4 individual toothbrush slots prevent cross-contamination', 'Removable cups for easy cleaning', 'Drainage holes keep holder hygienic', 'Tumbler slot integrated for glass/cup storage']
+  },
+  'pvd-gold': {
+    name: 'PVD Gold Basin Mixer',
+    cat: 'PVD Designer Series',
+    badge: 'Premium',
+    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    desc: 'Make a statement with this PVD gold-coated basin mixer. The physical vapour deposition coating is up to 4× harder than standard chrome plating — scratch-resistant, tarnish-proof, and hotel-grade.',
+    specs: [
+      ['Material', 'Solid Brass + PVD Gold'],
+      ['Coating', 'Physical Vapour Deposition'],
+      ['Hardness', '4× harder than chrome'],
+      ['Cartridge', '40mm Ceramic'],
+      ['Finish', 'PVD Satin Gold'],
+      ['Warranty', '5 Years PVD'],
+    ],
+    features: ['PVD coating 4× harder than standard chrome', 'Tarnish-free and UV-resistant for decades', '5-year PVD finish warranty', 'Matching PVD accessories available in series']
+  },
+  'pvd-black': {
+    name: 'PVD Matte Black Shower',
+    cat: 'PVD Designer Series',
+    badge: 'New',
+    img: 'https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80',
+    desc: 'A bold design statement — 250mm square matte black overhead shower with PVD coating over SS 304. Silicone self-cleaning nozzles with striking geometric face design for contemporary interiors.',
+    specs: [
+      ['Material', 'SS 304 + PVD'],
+      ['Size', '250mm × 250mm'],
+      ['Nozzles', '60 self-cleaning silicone'],
+      ['Coating', 'PVD Matte Black'],
+      ['Connection', '½" BSP'],
+      ['Warranty', '5 Years PVD'],
+    ],
+    features: ['Bold matte black PVD — no fingerprints, no water marks', '60 self-cleaning silicone nozzles for powerful rain', 'Geometric square face for modern interiors', '5-year PVD coating warranty']
+  },
+  'pvd-rose': {
+    name: 'Rose Gold Accessory Set',
+    cat: 'PVD Designer Series',
+    badge: 'Premium',
+    img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80',
+    desc: 'Complete your bathroom in stunning rose gold — this matching PVD set includes a 24" towel bar, double robe hook, and toilet paper holder. All pieces share an identical warm-tone blush finish.',
+    specs: [
+      ['Pieces Included', '3 (Towel bar, Hook, TP holder)'],
+      ['Material', 'Solid Brass + PVD'],
+      ['Finish', 'PVD Rose Gold'],
+      ['Towel Bar', '600mm (24")'],
+      ['Matching Series', 'Full range available'],
+      ['Warranty', '5 Years PVD'],
+    ],
+    features: ['Complete 3-piece coordinated set — buy as a bundle', 'Identical PVD finish across all pieces for uniformity', 'PVD coating resists tarnish and humidity', 'Extended series available — mixer, shower, shelf']
+  },
+  'oem-bulk': {
+    name: 'Bulk Hotel Supply Package',
+    cat: 'OEM / Custom Orders',
+    badge: '',
+    img: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80',
+    desc: 'The complete Jexira fitout solution for hotel and hospitality projects — coordinated bathroom sets for 50+ room projects, custom finish matching, private label, and priority dispatch.',
+    specs: [
+      ['Minimum Order', '50 rooms'],
+      ['Lead Time', '15–25 working days'],
+      ['Customisation', 'Finish, size, branding'],
+      ['Packaging', 'Individual foam boxes'],
+      ['Documentation', 'COC, REACH, ISO'],
+      ['Delivery', 'Pan-India + Export'],
+    ],
+    features: ['Coordinated accessory sets for every bathroom type', 'Custom finish and branding on all pieces', 'Project-specific packaging with room numbering', 'Dedicated project manager from order to delivery']
+  },
+  'oem-label': {
+    name: 'Private Label OEM Service',
+    cat: 'OEM / Custom Orders',
+    badge: 'New',
+    img: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=800&q=80',
+    desc: 'Build your own bathroom brand with Jexira OEM manufacturing. We apply your logo, your colour, and your packaging design on any product in our range — minimum quantities from 200 pieces.',
+    specs: [
+      ['Minimum Order', '200 pieces per SKU'],
+      ['Logo Options', 'Engraving / Label / Stamp'],
+      ['Packaging', 'Custom box & retail pack'],
+      ['Lead Time', '20–30 working days'],
+      ['Sample', 'Available on request'],
+      ['Certification', 'ISO, COC included'],
+    ],
+    features: ['Your logo engraved or labelled on every piece', 'Custom retail and export packaging design', 'Flexible MOQ from 200 pieces per product', 'Free sample with approved design before bulk order']
+  },
+  'oem-export': {
+    name: 'Export-Ready Pack Solution',
+    cat: 'OEM / Custom Orders',
+    badge: '',
+    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    desc: 'Full export logistics support — ISO-certified carton packing, complete compliance documentation (COC, REACH, BIS), and freight coordination to any global port. We handle it all.',
+    specs: [
+      ['Packing', 'Foam-lined individual + master carton'],
+      ['Documents', 'COC / REACH / ISO 9001'],
+      ['Shipping', 'CIF / FOB / Ex-Works'],
+      ['Destinations', 'Global (50+ countries)'],
+      ['Inspection', 'Third-party QC available'],
+      ['Labelling', 'Custom country-specific'],
+    ],
+    features: ['ISO 9001:2015 certified export documentation', 'REACH-compliant materials for EU market access', 'Custom packing to buyer country standards', 'Third-party pre-shipment inspection on request']
+  },
+};
+
+// ── Catalog Open/Close ─────────────────────────────────────────────────────
+const catNames = {
+  all: 'All Products',
+  shower: 'Shower Systems',
+  tap: 'Taps & Mixers',
+  towel: 'Towel Accessories',
+  hardware: 'Bathroom Hardware',
+  pvd: 'PVD Designer Series',
+  oem: 'OEM / Custom Orders'
+};
+
+function openCatalog(cat) {
+  document.getElementById('categoriesView').style.display = 'none';
+  document.getElementById('catalogView').style.display = 'block';
+  window.scrollTo({top: document.querySelector('.page-hero').offsetHeight - 68, behavior: 'smooth'});
+
+  // Update title
+  const n = catNames[cat] || 'All Products';
+  document.getElementById('catalogTitle').innerHTML = n.split(' ').length > 1
+    ? n.replace(/(\S+)$/, '<span>$1</span>')
+    : '<span>' + n + '</span>';
+
+  // Activate filter
+  filterProducts(cat, document.querySelector(`.filter-btn[data-cat="${cat}"]`));
+}
+
+function closeCatalog() {
+  document.getElementById('catalogView').style.display = 'none';
+  document.getElementById('categoriesView').style.display = 'block';
+  window.scrollTo({top: document.getElementById('categoriesView').offsetTop - 68, behavior: 'smooth'});
+}
+
+function filterProducts(cat, el) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.prod-card[data-cat]').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+  const title = catNames[cat] || 'All Products';
+  document.getElementById('catalogTitle').innerHTML = title.split(' ').length > 1
+    ? title.replace(/(\S+)$/, '<span>$1</span>')
+    : '<span>' + title + '</span>';
+}
+
+// ── Modal ──────────────────────────────────────────────────────────────────
+function openModal(id) {
+  const p = products[id];
+  if (!p) return;
+
+  document.getElementById('modalImg').src = p.img;
+  document.getElementById('modalImg').alt = p.name;
+  document.getElementById('modalCatPill').textContent = p.cat;
+  document.getElementById('modalName').textContent = p.name;
+  document.getElementById('modalDesc').textContent = p.desc;
+
+  // Badge
+  const badgeEl = document.getElementById('modalBadgeEl');
+  if (p.badge) {
+    const cls = p.badge === 'Best Seller' ? 'bestseller' : p.badge === 'New' ? 'new' : 'premium';
+    badgeEl.innerHTML = `<span class="badge ${cls}">${p.badge}</span>`;
+  } else {
+    badgeEl.innerHTML = '';
+  }
+
+  // Specs
+  const specsEl = document.getElementById('modalSpecs');
+  specsEl.innerHTML = p.specs.map(([l, v]) =>
+    `<div class="spec-row"><span class="spec-label">${l}</span><span class="spec-val">${v}</span></div>`
+  ).join('');
+
+  // Features
+  const featEl = document.getElementById('modalFeatures');
+  featEl.innerHTML = p.features.map(f =>
+    `<div class="feat-item">
+      <div class="feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg></div>
+      <span>${f}</span>
+    </div>`
+  ).join('');
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── Navbar scroll ──────────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
+});
+
+// ── Mobile menu ────────────────────────────────────────────────────────────
+function toggleMenu() {
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// ── Scroll reveal ──────────────────────────────────────────────────────────
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
